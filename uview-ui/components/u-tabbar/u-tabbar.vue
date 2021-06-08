@@ -48,6 +48,7 @@
 </template>
 
 <script>
+	import theme from '../../theme.js';
 	export default {
 		props: {
 			// 显示与否
@@ -68,12 +69,12 @@
 			// tabbar的高度，默认50px，单位任意，如果为数值，则为rpx单位
 			height: {
 				type: [String, Number],
-				default: '50px'
+				default: '49px'
 			},
 			// 非凸起图标的大小，单位任意，数值默认rpx
 			iconSize: {
 				type: [String, Number],
-				default: 40
+				default: 52
 			},
 			// 凸起的图标的大小，单位任意，数值默认rpx
 			midButtonSize: {
@@ -83,12 +84,12 @@
 			// 激活时的演示，包括字体图标，提示文字等的演示
 			activeColor: {
 				type: String,
-				default: '#303133'
+				default: theme.primaryColor
 			},
 			// 未激活时的颜色
 			inactiveColor: {
 				type: String,
-				default: '#606266'
+				default: '#666'
 			},
 			// 是否显示中部的凸起按钮
 			midButton: {
@@ -274,7 +275,7 @@
 				flex: 1;
 				justify-content: center;
 				height: 100%;
-				padding: 12rpx 0;
+				// padding: 12rpx 0;
 				@include vue-flex;
 				flex-direction: column;
 				align-items: center;
@@ -282,17 +283,17 @@
 
 				&__button {
 					position: absolute;
-					top: 14rpx;
+					top: 10rpx;
 					left: 50%;
 					transform: translateX(-50%);
 				}
 
 				&__text {
-					color: $u-content-color;
-					font-size: 26rpx;
+					color: $u-tips-color;
+					font-size: 20rpx;
 					line-height: 28rpx;
 					position: absolute;
-					bottom: 14rpx;
+					bottom: 2rpx;
 					left: 50%;
 					transform: translateX(-50%);
 					width: 100%;

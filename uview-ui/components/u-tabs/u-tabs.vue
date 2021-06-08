@@ -4,14 +4,30 @@
 	}">
 		<!-- $u.getRect()对组件根节点无效，因为写了.in(this)，故这里获取内层接点尺寸 -->
 		<view :id="id">
-			<scroll-view scroll-x class="u-scroll-view" :scroll-left="scrollLeft" scroll-with-animation>
+			<scroll-view 
+				scroll-x 
+				class="u-scroll-view" 
+				:scroll-left="scrollLeft" 
+				scroll-with-animation
+			>
 				<view class="u-scroll-box" :class="{'u-tabs-scorll-flex': !isScroll}">
-					<view class="u-tab-item u-line-1" :id="'u-tab-item-' + index" v-for="(item, index) in list" :key="index" @tap="clickTab(index)"
-					 :style="[tabItemStyle(index)]">
-						<u-badge :count="item[count] || item['count'] || 0" :offset="offset" size="mini"></u-badge>
-						{{ item[name] || item['name']}}
+					<view 
+						class="u-tab-item u-line-1" 
+						:id="'u-tab-item-' + index" 
+						v-for="(item, index) in list" 
+						:key="index" 
+						@tap="clickTab(index)"
+						:style="[tabItemStyle(index)]"
+					>
+						<u-badge 
+							:count="item[count] || item['count'] || 0" 
+							:offset="offset" size="mini"
+						/>
+						<text :id="'u-tab-item-text-' + index" >
+							{{ item[name] || item['name']}}
+						</text>
 					</view>
-					<view v-if="showBar" class="u-tab-bar" :style="[tabBarStyle]"></view>
+					<view v-if="showBar" class="u-tab-bar" :style="[{...tabBarStyle, width: barWidth + 'rpx'}]"></view>
 				</view>
 			</scroll-view>
 		</view>
@@ -46,6 +62,7 @@
 	 * @event {Function} change 点击标签时触发
 	 * @example <u-tabs ref="tabs" :list="list" :is-scroll="false"></u-tabs>
 	 */
+	import theme from '../../theme.js';
 	export default {
 		name: "u-tabs",
 		props: {
@@ -84,18 +101,18 @@
 			// 选中项的主题颜色
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: theme.primaryColor
 			},
 			// 未选中项的颜色
 			inactiveColor: {
 				type: String,
-				default: '#303133'
+				default: '#999999'
 			},
 			// 菜单底部移动的bar的宽度，单位rpx
-			barWidth: {
-				type: [String, Number],
-				default: 40
-			},
+			// barWidth: {
+			// 	type: [String, Number],
+			// 	default: 40
+			// },
 			// 移动bar的高度
 			barHeight: {
 				type: [String, Number],
@@ -168,6 +185,7 @@
 				id: this.$u.guid(), // id值
 				currentIndex: this.current,
 				barFirstTimeMove: true, // 滑块第一次移动时(页面刚生成时)，无需动画，否则给人怪异的感觉
+				barWidth: 0, // 
 			};
 		},
 		watch: {
@@ -187,7 +205,10 @@
 					// 视图更新后再执行移动操作
 					this.$nextTick(() => {
 						this.currentIndex = nVal;
-						this.scrollByIndex();
+						this.$uGetRect('#u-tab-item-text-' + nVal).then(res => {
+							this.barWidth = res.width * 2;
+							this.scrollByIndex();
+						})
 					});
 				}
 			},
@@ -196,7 +217,7 @@
 			// 移动bar的样式
 			tabBarStyle() {
 				let style = {
-					width: this.barWidth + 'rpx',
+					// width: this.barWidth + 'rpx',
 					transform: `translate(${this.scrollBarLeft}px, -100%)`,
 					// 滑块在页面渲染后第一次滑动时，无需动画效果
 					'transition-duration': `${this.barFirstTimeMove ? 0 : this.duration }s`,
@@ -224,7 +245,7 @@
 					// 字体加粗
 					if (index == this.currentIndex && this.bold) style.fontWeight = 'bold';
 					if (index == this.currentIndex) {
-						style.color = this.activeColor;
+						style.color = "#333"; // this.activeColor;
 						// 给选中的tab item添加外部自定义的样式
 						style = Object.assign(style, this.activeItemStyle);
 					} else {
