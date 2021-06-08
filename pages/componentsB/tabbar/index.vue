@@ -84,9 +84,7 @@
 						customIcon: false,
 					},
 				],
-				midButton: true,
-				inactiveColor: '#909399',
-				activeColor: '#5098FF'
+				midButton: true
 			}
 		},
 		methods: {

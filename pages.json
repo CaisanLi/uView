@@ -52,8 +52,18 @@
 					"popGesture": "none"
 				}
 			}
-		}
-	],
+		},
+		{
+            "path" : "pages/custom/custom",
+            "style" :                                                                                    
+            {
+				"navigationStyle": "custom",
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"subPackages": [{
 			"root": "pages/componentsC",
 			"pages": [
@@ -861,6 +871,12 @@
 				"iconPath": "static/uview/example/template.png",
 				"selectedIconPath": "static/uview/example/template_select.png",
 				"text": "模板"
+			},
+			{
+				"pagePath": "pages/custom/custom",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "自定义"
 			}
 		]
 	}

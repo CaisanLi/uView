@@ -4,8 +4,13 @@
 			<view class="u-demo-title">演示效果</view>
 			<view class="u-demo-area">
 				<u-toast ref="uToast"></u-toast>
-				<u-tabs v-if="control" bg-color="#fafafa" :bold="bold" :active-color="activeColor" :list="list"
-				@change="change" :current="current" :is-scroll="isScroll" :offset="offset"></u-tabs>
+				<u-tabs 
+					v-if="control" 
+					:list="list"
+					@change="change" 
+					:current="current" 
+					:is-scroll="isScroll" 
+					:offset="offset"></u-tabs>
 			</view>
 		</view>
 		<view class="u-config-wrap">
