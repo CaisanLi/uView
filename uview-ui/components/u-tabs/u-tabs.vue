@@ -1,7 +1,9 @@
 <template>
-	<view class="u-tabs" :style="{
-		background: bgColor
-	}">
+	<view 
+		class="u-tabs" 
+		:style="tabsStyle"
+		:class="{ 'u-tabs-capsule': capsule }"
+	>
 		<!-- $u.getRect()对组件根节点无效，因为写了.in(this)，故这里获取内层接点尺寸 -->
 		<view :id="id">
 			<scroll-view 
@@ -10,7 +12,11 @@
 				:scroll-left="scrollLeft" 
 				scroll-with-animation
 			>
-				<view class="u-scroll-box" :class="{'u-tabs-scorll-flex': !isScroll}">
+				<view 
+					class="u-scroll-box" 
+					:class="{'u-tabs-scorll-flex': !isScroll}"
+					:style="{ height: capsule ? 'auto' : height + 'rpx' }"
+				>
 					<view 
 						class="u-tab-item u-line-1" 
 						:id="'u-tab-item-' + index" 
@@ -21,16 +27,20 @@
 					>
 						<u-badge 
 							:count="item[count] || item['count'] || 0" 
-							:offset="offset" size="mini"
+							:offset="offset" 
+							:is-dot="isDot"
+							size="mini"
 						/>
 						<text :id="'u-tab-item-text-' + index" >
 							{{ item[name] || item['name']}}
 						</text>
 					</view>
-					<view v-if="showBar" class="u-tab-bar" :style="[{...tabBarStyle, width: barWidth + 'rpx'}]"></view>
+					<view v-if="showBar && !capsule" class="u-tab-bar" :style="[{...tabBarStyle, width: barWidth + 'rpx'}]"></view>
 				</view>
 			</scroll-view>
 		</view>
+		<!-- 右侧solt -->
+		<slot name="right"></slot>
 	</view>
 </template>
 
@@ -57,8 +67,10 @@
 	 * @property {String} bg-color tabs导航栏的背景颜色（默认#ffffff）
 	 * @property {String} name 组件内部读取的list参数中的属性名（tab名称），见官网说明（默认name）
 	 * @property {String} count 组件内部读取的list参数中的属性名（badge徽标数），同name属性的使用，见官网说明（默认count）
+	 * @property {Boolean} isDot 未读数是否显示一点（badge徽标） 
 	 * @property {Array} offset 设置badge徽标数的位置偏移，格式为 [x, y]，也即设置的为top和right的值，单位rpx（默认[5, 20]）
 	 * @property {Boolean} bold 激活选项的字体是否加粗（默认true）
+	 * @property {Boolean} capsule 是否开启胶囊样式（默认false）
 	 * @event {Function} change 点击标签时触发
 	 * @example <u-tabs ref="tabs" :list="list" :is-scroll="false"></u-tabs>
 	 */
@@ -86,12 +98,12 @@
 			// 导航栏的高度和行高
 			height: {
 				type: [String, Number],
-				default: 80
+				default: 96
 			},
 			// 字体大小
 			fontSize: {
 				type: [String, Number],
-				default: 30
+				default: 28
 			},
 			// 过渡动画时长, 单位ms
 			duration: {
@@ -101,7 +113,7 @@
 			// 选中项的主题颜色
 			activeColor: {
 				type: String,
-				default: theme.primaryColor
+				default: theme.primary
 			},
 			// 未选中项的颜色
 			inactiveColor: {
@@ -126,7 +138,7 @@
 			// 导航栏的背景颜色
 			bgColor: {
 				type: String,
-				default: '#ffffff'
+				default: '#fff'
 			},
 			// 读取传入的数组对象的属性(tab名称)
 			name: {
@@ -142,13 +154,18 @@
 			offset: {
 				type: Array,
 				default: () => {
-					return [5, 20]
+					return [2, 20]
 				}
+			},
+			// 未读数是否显示一个小点
+			isDot: {
+				type: Boolean,
+				default: false
 			},
 			// 活动tab字体是否加粗
 			bold: {
 				type: Boolean,
-				default: true
+				default: false
 			},
 			// 当前活动tab item的样式
 			activeItemStyle: {
@@ -173,6 +190,11 @@
 			itemWidth: {
 				type: [Number, String],
 				default: 'auto'
+			},
+			// 胶囊样式
+			capsule: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
@@ -214,6 +236,25 @@
 			},
 		},
 		computed: {
+			// 标签页style 
+			tabsStyle() {
+				const display = {
+					height: this.height + 'rpx',
+					lineHeight: this.height + 'rpx'
+				}
+				if(this.$slots.right || this.$slots.left) {
+					Object.assign(display, {
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between'
+						
+					});
+				}
+				return {
+					...display,
+					backgroundColor: this.bgColor
+				}
+			},
 			// 移动bar的样式
 			tabBarStyle() {
 				let style = {
@@ -233,19 +274,31 @@
 			// tab的样式
 			tabItemStyle() {
 				return (index) => {
+					let height = this.height;
+					// 是胶囊模式且height为默认值
+					if(this.capsule && height === 96) {
+						height = 64;
+					}
+					const { right, left } = this.$slots;
 					let style = {
-						height: this.height + 'rpx',
-						'line-height': this.height + 'rpx',
+						height: height + 'rpx',
+						'line-height': height + 'rpx',
 						'font-size': this.fontSize + 'rpx',
 						'transition-duration': `${this.duration}s`,
-						padding: this.isScroll ? `0 ${this.gutter}rpx` : '',
+						padding: (this.isScroll || right || left) ? `0 ${this.gutter}rpx` : '',
 						flex: this.isScroll ? 'auto' : '1',
 						width: this.$u.addUnit(this.itemWidth)
 					};
 					// 字体加粗
 					if (index == this.currentIndex && this.bold) style.fontWeight = 'bold';
 					if (index == this.currentIndex) {
-						style.color = "#333"; // this.activeColor;
+						// 胶囊模式
+						if(this.capsule) {
+							style.backgroundColor = this.activeColor;
+							style.color = '#fff'
+						} else {
+							style.color = "#333"; // this.activeColor;
+						}
 						// 给选中的tab item添加外部自定义的样式
 						style = Object.assign(style, this.activeItemStyle);
 					} else {
@@ -321,6 +374,7 @@
 		},
 		mounted() {
 			this.init();
+			console.log(this.$slots)
 		}
 	};
 </script>
@@ -386,5 +440,17 @@
 	.u-tabs-scorll-flex {
 		@include vue-flex;
 		justify-content: space-between;
+	}
+	.u-tabs-capsule {
+		.u-scroll-box {
+			display: inline-flex;
+			border-radius: 16rpx;
+			background-color: #F5F5F5;
+		}
+		.u-tab-item  {
+			padding-left: 58rpx;
+			padding-right: 58rpx;
+			border-radius: 16rpx;
+		}
 	}
 </style>
