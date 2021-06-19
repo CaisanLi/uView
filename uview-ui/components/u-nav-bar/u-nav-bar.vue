@@ -160,6 +160,7 @@
 		/* #endif */
 		align-items: center;
 		flex-direction: row;
+		justify-content: center;
 		// background-color: #FFFFFF;
 	}
 	
