@@ -1,5 +1,10 @@
 <template>
-	<view v-if="show" class="u-loading" :class="mode == 'circle' ? 'u-loading-circle' : 'u-loading-flower'" :style="[cricleStyle]">
+	<view 
+		v-if="show" 
+		class="u-loading" 
+		:class="mode == 'circle' ? 'u-loading-circle' : 'u-loading-flower'" 
+		:style="[cricleStyle]"
+	>
 	</view>
 </template>
 
@@ -14,6 +19,7 @@
 	 * @property {Boolean} show 是否显示动画（默认true）
 	 * @example <u-loading mode="circle"></u-loading>
 	 */
+	import themeColor from '../../theme.js';
 	export default {
 		name: "u-loading",
 		props: {
@@ -36,6 +42,11 @@
 			show: {
 				type: Boolean,
 				default: true
+			},
+			// 颜色
+			type: {
+				type: String,
+				default: ''
 			}
 		},
 		computed: {
@@ -44,7 +55,13 @@
 				let style = {};
 				style.width = this.size + 'rpx';
 				style.height = this.size + 'rpx';
-				if (this.mode == 'circle') style.borderColor = `#e4e4e4 #e4e4e4 #e4e4e4 ${this.color ? this.color : '#c7c7c7'}`;
+				const defaultColor = '#c7c7c7';
+				let color = this.color || defaultColor;
+				if(this.type) {
+					color = themeColor[this.type] || defaultColor;
+				}
+				if (this.mode == 'circle') 
+					style.borderColor = `#e4e4e4 #e4e4e4 #e4e4e4 ${ color }`;
 				return style;
 			},
 		}
