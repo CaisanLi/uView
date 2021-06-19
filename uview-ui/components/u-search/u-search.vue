@@ -2,6 +2,7 @@
 	<view class="u-search" @tap="clickHandler" :style="{
 		margin: margin,
 	}">
+		<slot name="left"></slot>
 		<view
 			class="u-content"
 			:style="{
@@ -12,7 +13,12 @@
 			}"
 		>
 			<view class="u-icon-wrap">
-				<u-icon class="u-clear-icon" :size="30" :name="searchIcon" :color="searchIconColor ? searchIconColor : color"></u-icon>
+				<u-icon 
+					class="u-clear-icon" 
+					:size="30" 
+					:name="searchIcon" 
+					:color="searchIconColor1"
+				/>
 			</view>
 			<input
 				confirm-type="search"
@@ -36,13 +42,18 @@
 				}, inputStyle]"
 			/>
 			<view class="u-close-wrap" v-if="keyword && clearabled && focused" @tap="clear">
-				<u-icon class="u-clear-icon" name="close-circle-fill" size="34" color="#c0c4cc"></u-icon>
+				<u-icon class="u-clear-icon" name="close-circle-fill" size="34" color="#ccc"></u-icon>
 			</view>
 		</view>
-		<view :style="[actionStyle]" class="u-action" 
+		<view 
+			:style="[actionStyle]" 
+			class="u-action" 
 			:class="[showActionBtn || show ? 'u-action-active' : '']" 
 			@tap.stop.prevent="custom"
-		>{{ actionText }}</view>
+		>
+			{{ actionText }}
+		</view>
+		<slot name="right"></slot>
 	</view>
 </template>
 
@@ -79,13 +90,14 @@
  * @event {Function} clear 用户点击清除按钮时触发
  * @example <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search>
  */
+import themeColor from '../../theme.js'
 export default {
 	name: "u-search",
 	props: {
 		// 搜索框形状，round-圆形，square-方形
 		shape: {
 			type: String,
-			default: 'round'
+			default: 'square'
 		},
 		// 搜索框背景色，默认值#f2f2f2
 		bgColor: {
@@ -152,7 +164,7 @@ export default {
 		// 搜索框高度，单位rpx
 		height: {
 			type: [Number, String],
-			default: 64
+			default: 80
 		},
 		// input输入框的样式，可以定义文字颜色，大小等，对象形式
 		inputStyle: {
@@ -169,17 +181,22 @@ export default {
 		// 搜索图标的颜色，默认同输入框字体颜色
 		searchIconColor: {
 			type: String,
-			default: ''
+			default: '#ccc'
+		},
+		// 输入框获取焦点的时候，搜索图标的颜色
+		searchIconFocusColor: {
+			type: String,
+			default: themeColor.primary
 		},
 		// 输入框字体颜色
 		color: {
 			type: String,
-			default: '#606266'
+			default: '#333'
 		},
 		// placeholder的颜色
 		placeholderColor: {
 			type: String,
-			default: '#909399'
+			default: '#ccc'
 		},
 		// 组件与其他上下左右元素之间的距离，带单位的字符串形式，如"30rpx"、"30rpx 20rpx"等写法
 		margin: {
@@ -218,6 +235,9 @@ export default {
 		}
 	},
 	computed: {
+		searchIconColor1() {
+			return this.focused ? this.searchIconFocusColor : this.searchIconColor || this.color;
+		},
 		showActionBtn() {
 			if (!this.animation && this.showAction) return true;
 			else return false;
@@ -290,6 +310,8 @@ export default {
 	@include vue-flex;
 	align-items: center;
 	flex: 1;
+	padding: 16rpx 32rpx;
+	background-color: #fff;
 }
 
 .u-content {
@@ -308,7 +330,7 @@ export default {
 	flex: 1;
 	font-size: 28rpx;
 	line-height: 1;
-	margin: 0 10rpx;
+	margin: 0 8rpx;
 	color: $u-tips-color;
 }
 
@@ -337,6 +359,6 @@ export default {
 
 .u-action-active {
 	width: 80rpx;
-	margin-left: 10rpx;
+	margin-left: 12rpx;
 }
 </style>
