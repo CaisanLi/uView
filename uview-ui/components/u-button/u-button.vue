@@ -5,6 +5,7 @@
 		:class="[
 			'u-size-' + size,
 			plain ? 'u-btn--' + type + '--plain' : '',
+			outline ? 'u-btn--' + type + '--outline' : '',
 			loading ? 'u-loading' : '',
 			shape == 'circle' ? 'u-round-circle' : '',
 			hairLine ? showHairLineBorder : 'u-btn--bold-border',
@@ -35,8 +36,9 @@
 		}]"
 		@tap.stop="click($event)"
 		:hover-class="getHoverClass"
-		:loading="loading"
 	>
+		<u-loading v-if="loading" :type="type" :style="{marginRight: '8rpx'}" />
+		<u-icon v-if="icon" :name="icon" :custom-style="{marginRight: '8rpx'}" />
 		<slot></slot>
 		<view
 			v-if="ripple"
@@ -64,8 +66,10 @@
  * @property {String} type 按钮的样式类型
  * @property {Boolean} plain 按钮是否镂空，背景色透明
  * @property {Boolean} disabled 是否禁用
+ * @property {Boolean} outline 按钮是否镂空 背景色白色
  * @property {Boolean} hair-line 是否显示按钮的细边框(默认true)
  * @property {Boolean} shape 按钮外观形状，见文档说明
+ * @property {String} icon 图标，值见图标组件 
  * @property {Boolean} loading 按钮名称前是否带 loading 图标(App-nvue 平台，在 ios 上为雪花，Android上为圆圈)
  * @property {String} form-type 用于 <form> 组件，点击分别会触发 <form> 组件的 submit/reset 事件
  * @property {String} open-type 开放能力
@@ -105,8 +109,18 @@ export default {
 			type: String,
 			default: 'square'
 		},
+		// 图标
+		icon: {
+			type: String,
+			default: ''
+		},
 		// 按钮是否镂空
 		plain: {
+			type: Boolean,
+			default: false
+		},
+		// 按钮是否透明背景
+		outline: {
 			type: Boolean,
 			default: false
 		},
@@ -230,8 +244,13 @@ export default {
 		getHoverClass() {
 			// 如果开启水波纹效果，则不启用hover-class效果
 			if (this.loading || this.disabled || this.ripple || this.hoverClass) return '';
-			let hoverClass = '';
-			hoverClass = this.plain ? 'u-' + this.type + '-plain-hover' : 'u-' + this.type + '-hover';
+			let hoverClass = 'u-' + this.type + '-hover';
+			if(this.plain) {
+				hoverClass = 'u-' + this.type + '-plain-hover';
+			} else if(this.outline) {
+				hoverClass = 'u-' + this.type + '-outline-hover';
+			}
+			
 			return hoverClass;
 		},
 		// 在'primary', 'success', 'error', 'warning'类型下，不显示边框，否则会造成四角有毛刺现象
@@ -401,33 +420,49 @@ export default {
 	}
 	
 	&--default--disabled {
-		color: #ffffff;
-		border-color: #e4e7ed;
-		background-color: #ffffff;
+		color: $u-type-info-disabled !important;
+		border-color: #E6E6E6 !important;
+		background-color: #ffffff !important;
 	}
 	
 	&--primary--disabled {
 		color: #ffffff!important;
-		border-color: $u-type-primary-disabled!important;
-		background-color: $u-type-primary-disabled!important;
+		border-color: $u-type-primary-disabled !important;
+		background-color: $u-type-primary-disabled !important;
+		&.u-btn--primary--outline {
+			color: $u-type-primary-disabled !important;
+			background-color: #fff !important;
+		}
 	}
-	
+
 	&--success--disabled {
 		color: #ffffff!important;
 		border-color: $u-type-success-disabled!important;
 		background-color: $u-type-success-disabled!important;
+		&.u-btn--success--outline {
+			color: $u-type-success-disabled !important;
+			background-color: #fff !important;
+		}
 	}
 	
 	&--error--disabled {
 		color: #ffffff!important;
 		border-color: $u-type-error-disabled!important;
 		background-color: $u-type-error-disabled!important;
+		&.u-btn--error--outline {
+			color: $u-type-error-disabled !important;
+			background-color: #fff !important;
+		}
 	}
 	
 	&--warning--disabled {
 		color: #ffffff!important;
 		border-color: $u-type-warning-disabled!important;
 		background-color: $u-type-warning-disabled!important;
+		&.u-btn--warning--outline {
+			color: $u-type-warning-disabled !important;
+			background-color: #fff !important;
+		}
 	}
 	
 	&--primary--plain {
@@ -452,6 +487,30 @@ export default {
 		color: $u-type-warning!important;
 		border-color: $u-type-warning-disabled!important;
 		background-color: $u-type-warning-light!important;
+	}
+	
+	&--primary--outline {
+		color: $u-type-primary;
+		border: 1rpx solid $u-type-primary;
+		background-color: #fff;
+	}
+	
+	&--success--outline {
+		color: $u-type-success;
+		border: 1rpx solid $u-type-success;
+		background-color: #fff;
+	}
+	
+	&--error--outline {
+		color: $u-type-error;
+		border: 1rpx solid $u-type-error;
+		background-color: #fff;
+	}
+	
+	&--warning--outline {
+		color: $u-type-warning;
+		border: 1rpx solid $u-type-warning;
+		background-color: #fff;
 	}
 }
 
@@ -531,6 +590,22 @@ export default {
 	height: 50rpx;
 	line-height: 50rpx;
 	padding: 0 20rpx;
+}
+
+.u-primary-outline-hover {
+	background: $u-type-primary-light !important;
+}
+
+.u-success-outline-hover {
+	background: $u-type-success-light !important;
+}
+
+.u-error-outline-hover {
+	background: $u-type-error-light !important;
+}
+
+.u-warning-outline-hover {
+	background: $u-type-warning-light !important;
 }
 
 .u-primary-plain-hover {
