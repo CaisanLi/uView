@@ -3,7 +3,7 @@
 		<u-nav-bar>
 			自定义组件
 		</u-nav-bar>
-		<u-footer></u-footer>
+		<u-footer tip="北京众信佳"></u-footer>
 	</view>
 </template>
 
