@@ -21,6 +21,7 @@
 	 * @event {Function} change 任一个radio状态发生变化时触发
 	 * @example <u-radio-group v-model="value"></u-radio-group>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-radio-group",
 		mixins: [Emitter],
@@ -38,12 +39,12 @@
 			// 选中状态下的颜色
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.primary
 			},
 			// 组件的整体大小
 			size: {
 				type: [String, Number],
-				default: 34
+				default: 30
 			},
 			// 是否禁止点击提示语选中复选框
 			labelDisabled: {

@@ -130,7 +130,7 @@
 				return style;
 			},
 			iconColor() {
-				return this.name ==  this.parentData.value ? '#ffffff' : 'transparent';
+				return this.name ==  this.parentData.value ? this.elDisabled ? '#e6e6e6' : '#ffffff' : 'transparent';
 			},
 			iconClass() {
 				let classes = [];
@@ -242,26 +242,29 @@
 			
 			&--checked {
 				color: #fff;
-				background-color: #2979ff;
-				border-color: #2979ff;
+				background-color: $u-type-primary;
+				border-color: $u-type-primary;
 			}
 			
 			&--disabled {
-				background-color: #ebedf0;
-				border-color: #c8c9cc;
+				background-color: #F5F5F5;
+				border-color: #e6e6e6;
+				& + .u-radio__label {
+					color: #ccc;
+				}
 			}
 			
 			&--disabled--checked {
-				color: #c8c9cc !important;
+				color: #e6e6e6 !important;
 			}
 		}
 		
 		&__label {
 			word-wrap: break-word;
-			margin-left: 10rpx;
+			margin-left: 8rpx;
 			margin-right: 24rpx;
-			color: $u-content-color;
-			font-size: 30rpx;
+			color: $u-main-color;
+			font-size: 34rpx;
 			
 			&--disabled {
 				color: #c8c9cc;
