@@ -125,7 +125,8 @@
 			},
 			// checkbox内部的勾选图标，如果选中状态，为白色，否则为透明色即可
 			iconColor() {
-				return this.value ? '#ffffff' : 'transparent';
+				// this.name ==  this.parentData.value ? this.elDisabled ? '#e6e6e6' : '#ffffff' : 'transparent';
+				return this.value ? this.isDisabled ? '#e6e6e6' : '#ffffff' : 'transparent';
 			},
 			iconClass() {
 				let classes = [];
@@ -260,8 +261,11 @@
 			}
 			
 			&--disabled {
-				background-color: #ebedf0;
-				border-color: #c8c9cc;
+				background-color: #F5F5F5;
+				border-color: #e6e6e6;
+				& + .u-checkbox__label {
+					color: #ccc;
+				}
 			}
 			
 			&--disabled--checked {
@@ -271,10 +275,10 @@
 	
 		&__label {
 			word-wrap: break-word;
-			margin-left: 10rpx;
+			margin-left: 8rpx;
 			margin-right: 24rpx;
 			color: $u-content-color;
-			font-size: 30rpx;
+			font-size: 34rpx;
 			
 			&--disabled {
 				color: #c8c9cc;
