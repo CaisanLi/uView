@@ -1,5 +1,15 @@
 <template>
-	<u-popup :maskCloseAble="maskCloseAble" mode="bottom" :popup="false" v-model="value" length="auto" :safeAreaInsetBottom="safeAreaInsetBottom" @close="close" :z-index="uZIndex">
+	<u-popup 
+		:maskCloseAble="maskCloseAble" 
+		mode="bottom" 
+		:popup="false" 
+		v-model="value" 
+		length="auto" 
+		:safeAreaInsetBottom="safeAreaInsetBottom" 
+		@close="close" 
+		:z-index="uZIndex"
+		:borderRadius="borderRadius"
+	>
 		<view class="u-datetime-picker">
 			<view class="u-picker-header" @touchmove.stop.prevent="">
 				<view class="u-btn-picker u-btn-picker--tips" 
@@ -126,9 +136,14 @@ import areas from '../../libs/util/area.js';
  * @event {Function} cancel 点击取消按钮，返回当前选择的值
  * @example <u-picker v-model="show" mode="time"></u-picker>
  */
+import themeColor from '../../theme.js';
 export default {
 	name: 'u-picker',
 	props: {
+		borderRadius: {
+			type: Number,
+			default: 36
+		},
 		// picker中需要显示的参数
 		params: {
 			type: Object,
@@ -184,12 +199,12 @@ export default {
 		// "取消"按钮的颜色
 		cancelColor: {
 			type: String,
-			default: '#606266'
+			default: themeColor.tip //'#606266'
 		},
 		// "确定"按钮的颜色
 		confirmColor: {
 			type: String,
-			default: '#2979ff'
+			default: themeColor.primary // '#2979ff'
 		},
 		// 默认显示的时间，2025-07-02 || 2025-07-02 13:01:00 || 2025/07/02
 		defaultTime: {
@@ -619,19 +634,20 @@ export default {
 	position: relative;
 }
 
-.u-picker-header::after {
-	content: '';
-	position: absolute;
-	border-bottom: 1rpx solid #eaeef1;
-	-webkit-transform: scaleY(0.5);
-	transform: scaleY(0.5);
-	bottom: 0;
-	right: 0;
-	left: 0;
-}
+// .u-picker-header::after {
+// 	content: '';
+// 	position: absolute;
+// 	border-bottom: 1rpx solid #eaeef1;
+// 	-webkit-transform: scaleY(0.5);
+// 	transform: scaleY(0.5);
+// 	bottom: 0;
+// 	right: 0;
+// 	left: 0;
+// }
 
 .u-picker__title {
-	color: $u-content-color;
+	color: $u-main-color;
+	font-size: 34rpx;
 }
 
 .u-picker-body {
