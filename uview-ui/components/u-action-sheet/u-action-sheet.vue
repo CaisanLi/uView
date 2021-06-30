@@ -92,7 +92,7 @@
 			// 弹出的顶部圆角值
 			borderRadius: {
 				type: [String, Number],
-				default: 0
+				default: 36
 			},
 			// 弹出的z-index值
 			zIndex: {
@@ -160,7 +160,7 @@
 		text-align: center;
 		padding: 34rpx 0;
 		line-height: 1;
-		color: $u-tips-color;
+		color: #ccc;
 	}
 
 	.u-action-sheet-item {
