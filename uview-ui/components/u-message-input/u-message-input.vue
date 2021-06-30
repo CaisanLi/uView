@@ -54,6 +54,7 @@
 	 * @event {Function} finish 输入字符个数达maxlength值时触发，见官网说明
 	 * @example <u-message-input mode="bottomLine"></u-message-input>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-message-input",
 		props: {
@@ -100,7 +101,7 @@
 			// 激活样式
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.color // '#2979ff'
 			},
 			// 未激活的样式
 			inactiveColor: {
