@@ -9,7 +9,17 @@
 				<u-icon name="arrow-down-fill" size="26" color="#c0c4cc"></u-icon>
 			</view>
 		</view> -->
-		<u-popup :maskCloseAble="maskCloseAble" mode="bottom" :popup="false" v-model="value" length="auto" :safeAreaInsetBottom="safeAreaInsetBottom" @close="close" :z-index="uZIndex">
+		<u-popup 
+			:maskCloseAble="maskCloseAble" 
+			mode="bottom" 
+			:popup="false" 
+			v-model="value" 
+			length="auto" 
+			:safeAreaInsetBottom="safeAreaInsetBottom" 
+			@close="close" 
+			:z-index="uZIndex"
+			:borderRadius="borderRadius"
+		>
 			<view class="u-select">
 				<view class="u-select__header" @touchmove.stop.prevent="">
 					<view
@@ -71,7 +81,7 @@
 	 * @event {Function} confirm 点击确定按钮，返回当前选择的值
 	 * @example <u-select v-model="show" :list="list"></u-select>
 	 */
-
+import themeColor from '../../theme.js'
 export default {
 	props: {
 		// 列数据
@@ -94,12 +104,12 @@ export default {
 		// "取消"按钮的颜色
 		cancelColor: {
 			type: String,
-			default: '#606266'
+			default: themeColor.tip // '#606266'
 		},
 		// "确定"按钮的颜色
 		confirmColor: {
 			type: String,
-			default: '#2979ff'
+			default: themeColor.primary // '#2979ff'
 		},
 		// 弹出的z-index值
 		zIndex: {
@@ -156,6 +166,11 @@ export default {
 		confirmText: {
 			type: String,
 			default: '确认'
+		},
+		// 
+		borderRadius: {
+			type: Number,
+			default: 36
 		}
 	},
 	data() {
@@ -353,11 +368,10 @@ export default {
 @import "../../libs/css/style.components.scss";
 
 .u-select {
-
 	&__action {
 		position: relative;
-		line-height: $u-form-item-height;
-		height: $u-form-item-height;
+		line-height: $u-select-item;
+		height: $u-select-item;
 
 		&__icon {
 			position: absolute;
@@ -373,16 +387,11 @@ export default {
 		}
 	}
 
-	&__hader {
+	&__header {
 		&__title {
-			color: $u-content-color;
+			color: $u-main-color;
+			font-size: 34rpx;
 		}
-	}
-
-	&--border {
-		border-radius: 6rpx;
-		border-radius: 4px;
-		border: 1px solid $u-form-item-border-color;
 	}
 
 	&__header {
@@ -390,7 +399,7 @@ export default {
 		align-items: center;
 		justify-content: space-between;
 		height: 80rpx;
-		padding: 0 40rpx;
+		padding: 0 38rpx;
 	}
 
 	&__body {
@@ -407,9 +416,11 @@ export default {
 				@include vue-flex;
 				align-items: center;
 				justify-content: center;
-				font-size: 32rpx;
+				font-size: 34rpx;
 				color: $u-main-color;
 				padding: 0 8rpx;
+				line-height: $u-select-item;
+				height: $u-select-item;
 			}
 		}
 	}
