@@ -1,5 +1,5 @@
 <template>
-	<view class="u-form-item" :class="{'u-border-bottom': elBorderBottom, 'u-form-item__border-bottom--error': validateState === 'error' && showError('border-bottom')}">
+	<view class="u-form-item" :class="{'u-border-bottom': elBorderBottom, 'u-form-item-field': field, 'u-form-item__border-bottom--error': validateState === 'error' && showError('border-bottom')}">
 		<view class="u-form-item__body" :style="{
 			flexDirection: elLabelPosition == 'left' ? 'row' : 'column'
 		}">
@@ -142,6 +142,11 @@
 			required: {
 				type: Boolean,
 				default: false
+			},
+			// 开始 field 样式
+			field: {
+				type: Boolean,
+				default: true
 			}
 		},
 		data() {
@@ -212,8 +217,7 @@
 			// label的下划线
 			elBorderBottom() {
 				// 子组件的borderBottom默认为空字符串，如果不等于空字符串，意味着子组件设置了值，优先使用子组件的值
-				return this.borderBottom !== '' ? this.borderBottom : this.parentData.borderBottom ? this.parentData.borderBottom :
-					true;
+				return this.borderBottom !== '' ? this.borderBottom : this.parentData.borderBottom;
 			}
 		},
 		methods: {
@@ -426,6 +430,10 @@
 			line-height: 24rpx;
 			color: $u-type-error;
 			margin-top: 12rpx;
+		}
+		
+		&-field {
+			
 		}
 	}
 </style>

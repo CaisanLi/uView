@@ -46,7 +46,7 @@ export default {
 		// 是否显示表单域的下划线边框
 		borderBottom: {
 			type: Boolean,
-			default: true
+			default: false
 		},
 		// label的位置，left-左边，top-上边
 		labelPosition: {
