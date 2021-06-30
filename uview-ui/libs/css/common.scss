@@ -175,3 +175,10 @@ text {
 	flex-direction: row;
 	align-items: center;
 }
+
+// 重置选择器item的高度
+.u-select, .u-drawer {
+	.uni-picker-view-indicator {
+		height: $u-select-item;
+	}
+}
