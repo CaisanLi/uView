@@ -41,7 +41,7 @@
 					text: '落花时节又逢君'
 				}],
 				tips: {
-					text: ''
+					text: '提示文字'
 				},
 				show: false,
 				cancel: true,

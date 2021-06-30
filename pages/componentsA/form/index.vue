@@ -16,6 +16,9 @@
 			<u-form-item :label-position="labelPosition" label="确认密码" label-width="150" prop="rePassword">
 				<u-input :border="border" type="password" v-model="model.rePassword" placeholder="请确认密码"></u-input>
 			</u-form-item>
+			<u-form-item :label-position="labelPosition" label="约会时间" label-width="150" prop="dateTime">
+				<u-picker v-model="dateTimeShow" mode="time" title="约会时间" :params="dataTimeParams"></u-picker>
+			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="水果品种" label-width="150" prop="likeFruit">
 				<u-checkbox-group @change="checkboxGroupChange" :width="radioCheckWidth" :wrap="radioCheckWrap">
 					<u-checkbox v-model="item.checked" v-for="(item, index) in checkboxList" :key="index" :name="item.name">{{ item.name }}</u-checkbox>
@@ -55,8 +58,7 @@
 		</view>
 		<u-button @click="submit">提交</u-button>
 		<u-action-sheet :list="actionSheetList" v-model="actionSheetShow" @click="actionSheetCallback"></u-action-sheet>
-		<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectConfirm"></u-select>
-		<u-picker mode="region" v-model="pickerShow" @confirm="regionConfirm"></u-picker>
+		<u-picker mode="region" v-model="pickerShow" title="地区选择" @confirm="regionConfirm"></u-picker>
 		<u-verification-code seconds="60" ref="uCode" @change="codeChange"></u-verification-code>
 		<view class="u-config-wrap">
 			<view class="u-config-title u-border-bottom">
@@ -102,6 +104,15 @@ export default {
 				rePassword: '',
 				remember: false,
 				photo: ''
+			},
+			dateTimeShow: true,
+			dataTimeParams: {
+				year: true,
+				month: true,
+				day: true,
+				hour: true,
+				minute: true,
+				second: true
 			},
 			selectList: [
 				{
