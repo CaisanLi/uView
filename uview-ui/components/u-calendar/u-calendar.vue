@@ -88,7 +88,7 @@
 	 * @property {Boolean} closeable 是否显示右上角的关闭图标(默认true)
 	 * @example <u-calendar v-model="show" :mode="mode"></u-calendar>
 	 */
-	
+	import themeColor from '../../theme.js'
 	export default {
 		name: 'u-calendar',
 		props: {
@@ -173,7 +173,7 @@
 			// 选中|起始结束日期背景色
 			activeBgColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.primary // '#2979ff'
 			},
 			// 选中|起始结束日期字体颜色
 			activeColor: {
@@ -188,7 +188,7 @@
 			// 范围内日期字体颜色
 			rangeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.primary //'#2979ff'
 			},
 			// mode=range时生效，起始日期自定义文案
 			startText: {

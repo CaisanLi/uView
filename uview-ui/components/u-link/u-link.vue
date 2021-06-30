@@ -22,13 +22,14 @@
 	 * @property {String} mp-tips 各个小程序平台把链接复制到粘贴板后的提示语（默认“链接已复制，请在浏览器打开”）
 	 * @example <u-link href="http://www.uviewui.com">蜀道难，难于上青天</u-link>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-link",
 		props: {
 			// 文字颜色
 			color: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.color //  '#2979ff'
 			},
 			// 字体大小，单位rpx
 			fontSize: {

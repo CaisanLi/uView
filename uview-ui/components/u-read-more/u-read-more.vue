@@ -36,6 +36,7 @@
 	 * @property {String} color 提示文字的颜色（默认#2979ff）
 	 * @example <u-read-more><rich-text :nodes="content"></rich-text></u-read-more>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-read-more",
 		props: {
@@ -62,7 +63,7 @@
 			// 提示的文字颜色
 			color: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.primary // '#2979ff'
 			},
 			// 提示文字的大小
 			fontSize: {

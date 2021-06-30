@@ -42,6 +42,7 @@
 	 * @event {Function} select 选中右边索引字符时触发
 	 * @example <u-index-list :scrollTop="scrollTop"></u-index-list>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-index-list",
 		props: {
@@ -69,7 +70,7 @@
 			},
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.primary // '#2979ff'
 			}
 		},
 		created() {

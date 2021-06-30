@@ -61,6 +61,7 @@
 	 * @event {Function} cancel 取消按钮被点击
 	 * @example <u-modal :src="title" :content="content"></u-modal>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: 'u-modal',
 		props: {
@@ -117,7 +118,7 @@
 			// 确认按钮颜色
 			confirmColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.color // '#2979ff'
 			},
 			// 取消文字颜色
 			cancelColor: {

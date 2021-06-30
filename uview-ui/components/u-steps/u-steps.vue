@@ -55,6 +55,7 @@
  * @property {String} un-active-color 未激活的颜色，用于表示未完成步骤的颜色（默认#606266）
  * @example <u-steps :list="numList" active-color="#fa3534"></u-steps>
  */
+import themeColor from '../../theme.js'
 export default {
 	name: 'u-steps',
 	props: {
@@ -83,7 +84,7 @@ export default {
 		// 激活步骤的颜色
 		activeColor: {
 			type: String,
-			default: '#2979ff'
+			default: themeColor.primary // '#2979ff'
 		},
 		// 未激活的颜色
 		unActiveColor: {

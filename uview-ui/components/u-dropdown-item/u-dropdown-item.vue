@@ -33,6 +33,7 @@
 	 * @property {String | Number} height 弹窗下拉内容的高度(内容超出将会滚动)（默认auto）
 	 * @example <u-dropdown-item title="标题"></u-dropdown-item>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: 'u-dropdown-item',
 		props: {
@@ -67,7 +68,7 @@
 		data() {
 			return {
 				active: false, // 当前项是否处于展开状态
-				activeColor: '#2979ff', // 激活时左边文字和右边对勾图标的颜色
+				activeColor: themeColor.color,// '#2979ff', // 激活时左边文字和右边对勾图标的颜色
 				inactiveColor: '#606266', // 未激活时左边文字和右边对勾图标的颜色
 			}
 		},

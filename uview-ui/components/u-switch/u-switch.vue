@@ -25,6 +25,7 @@
 	 * @event {Function} change 在switch打开或关闭时触发
 	 * @example <u-switch v-model="checked" active-color="red" inactive-color="#eee"></u-switch>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-switch",
 		props: {
@@ -46,7 +47,7 @@
 			// 打开时的背景颜色
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.primary // '#2979ff'
 			},
 			// 关闭时的背景颜色
 			inactiveColor: {

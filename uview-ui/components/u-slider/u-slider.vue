@@ -46,6 +46,7 @@
  * @event {Function} end 滑动结束
  * @example <u-slider v-model="value" />
  */
+import themeColor from '../../theme.js'
 export default {
 	name: 'u-slider',
 	props: {
@@ -87,7 +88,7 @@ export default {
 		// 进度条的激活部分颜色
 		activeColor: {
 			type: String,
-			default: '#2979ff'
+			default: themeColor.color // '#2979ff'
 		},
 		// 进度条的背景颜色
 		inactiveColor: {

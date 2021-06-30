@@ -45,6 +45,7 @@
  * @property {String} bg-color 整个组件背景颜色，默认为白色
  * @example <u-circle-progress active-color="#2979ff" :percent="80"></u-circle-progress>
  */
+import themeColor from '../../theme.js'
 export default {
 	name: 'u-circle-progress',
 	props: {
@@ -65,7 +66,7 @@ export default {
 		// 圆环激活部分的颜色
 		activeColor: {
 			type: String,
-			default: '#19be6b'
+			default: themeColor.primary
 		},
 		// 圆环线条的宽度，单位rpx
 		borderWidth: {

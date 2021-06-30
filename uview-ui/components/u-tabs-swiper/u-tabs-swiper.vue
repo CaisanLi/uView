@@ -48,6 +48,7 @@
 	 * @event {Function} change 点击标签时触发
 	 * @example <u-tabs-swiper ref="tabs" :list="list" :is-scroll="false"></u-tabs-swiper>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: "u-tabs-swiper",
 		props: {
@@ -91,7 +92,7 @@
 			// 选中项的主题颜色
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.color // '#2979ff'
 			},
 			// 未选中项的颜色
 			inactiveColor: {

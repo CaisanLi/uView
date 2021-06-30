@@ -51,13 +51,14 @@
 	 * @event {Function} close 下拉菜单被关闭时触发
 	 * @example <u-dropdown></u-dropdown>
 	 */
+	import themeColor from '../../theme.js'
 	export default {
 		name: 'u-dropdown',
 		props: {
 			// 菜单标题和选项的激活态颜色
 			activeColor: {
 				type: String,
-				default: '#2979ff'
+				default: themeColor.color //'#2979ff'
 			},
 			// 菜单标题和选项的未激活态颜色
 			inactiveColor: {
