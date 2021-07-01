@@ -10,7 +10,7 @@
 				@tap="itemClick(index)" 
 				:style="[itemStyle(index)]" 
 				class="u-action-sheet-item u-line-1" 
-				:class="[index < list.length - 1 ? 'u-border-bottom' : '']"
+				:class="[((index < list.length - 1) && !tips.text) ? 'u-border-bottom' : '']"
 				:hover-stay-time="150"
 			>
 				<text>{{item.text}}</text>
@@ -156,20 +156,20 @@
 	@import "../../libs/css/style.components.scss";
 
 	.u-tips {
-		font-size: 26rpx;
+		font-size: 34rpx;
 		text-align: center;
-		padding: 34rpx 0;
+		padding: 24rpx 0;
 		line-height: 1;
 		color: #ccc;
 	}
-
+	
 	.u-action-sheet-item {
-		@include vue-flex;;
+		@include vue-flex;
 		line-height: 1;
 		justify-content: center;
 		align-items: center;
-		font-size: 32rpx;
-		padding: 34rpx 0;
+		font-size: 34rpx;
+		padding: 24rpx 0;
 		flex-direction: column;
 	}
 	
@@ -180,11 +180,11 @@
 	}
 
 	.u-gab {
-		height: 12rpx;
-		background-color: rgb(234, 234, 236);
+		height: 16rpx;
+		background-color: #F5F5F5;
 	}
 
 	.u-actionsheet-cancel {
-		color: $u-main-color;
+		color: $u-tips-color;
 	}
 </style>
