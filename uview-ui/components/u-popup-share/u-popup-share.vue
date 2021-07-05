@@ -194,6 +194,7 @@
 			display: flex;
 			// @include vue-flex;
 			align-items: center;
+			padding: 0 16rpx;
 		}
 		&-item {
 			padding: 0 32rpx;
@@ -208,7 +209,7 @@
 			font-size: 24rpx;
 		}
 		&-divider {
-			padding: 0 20rpx;
+			padding: 0 48rpx;
 		}
 	}
 </style>
